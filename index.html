@@ -1,0 +1,162 @@
+<!doctype html>
+<html lang="ar" dir="rtl">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="theme-color" content="#f4f7fb" />
+    <title>جهات الاتصال</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="./user-page.css" />
+  </head>
+  <body>
+    <header class="user-header">
+      <a class="user-brand" href="./index.html">
+        <span class="user-brand-icon" aria-hidden="true">
+          <svg viewBox="0 0 24 24"><path d="M16 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2M10 11a4 4 0 1 0 0-8 4 4 0 0 0 0 8ZM20 8v6M23 11h-6" /></svg>
+        </span>
+        <span data-i18n="appName">جهات الاتصال</span>
+      </a>
+      <button class="language-button" id="languageButton" type="button">English</button>
+    </header>
+
+    <main class="user-main">
+      <section class="login-panel" id="loginPanel">
+        <div class="panel-icon" aria-hidden="true">
+          <svg viewBox="0 0 24 24"><path d="M15 3h4a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2h-4M10 17l5-5-5-5M15 12H3" /></svg>
+        </div>
+        <h1 data-i18n="loginTitle">دخول المستخدم</h1>
+        <p class="panel-description" data-i18n="loginSubtitle">أدخل بريدك الإلكتروني وكلمة المرور لعرض جهات اتصالك</p>
+
+        <form id="loginForm" novalidate>
+          <label>
+            <span data-i18n="email">البريد الإلكتروني</span>
+            <input id="emailInput" name="email" type="email" required autocomplete="username" />
+          </label>
+          <label>
+            <span data-i18n="password">كلمة المرور</span>
+            <div class="password-field">
+              <input id="passwordInput" name="password" type="password" required autocomplete="current-password" />
+              <button class="password-toggle" id="togglePassword" type="button" aria-label="إظهار كلمة المرور" title="إظهار كلمة المرور">
+                <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M2 12s3.6-7 10-7 10 7 10 7-3.6 7-10 7-10-7-10-7Z M12 9a3 3 0 1 0 0 6 3 3 0 0 0 0-6Z" /></svg>
+              </button>
+            </div>
+          </label>
+          <div class="login-error" id="loginError" role="alert" hidden></div>
+          <button class="submit-button" id="loginButton" type="submit" data-i18n="loginButton">دخول</button>
+        </form>
+
+      </section>
+
+      <section class="contacts-panel" id="contactsPanel" hidden>
+        <div class="contacts-heading">
+          <div>
+            <p class="eyebrow" data-i18n="myContacts">جهات اتصالي</p>
+            <h1 id="welcomeHeading"></h1>
+            <p class="profile-email" id="profileEmail"></p>
+          </div>
+          <div class="profile-actions">
+            <button class="outline-button" id="changePasswordButton" type="button" data-i18n="changePassword">تغيير كلمة المرور</button>
+            <button class="logout-button" id="logoutButton" type="button" data-i18n="logout">تسجيل الخروج</button>
+          </div>
+        </div>
+        <div id="contactsListView">
+          <div class="contacts-toolbar">
+            <label class="contact-search">
+              <span class="visually-hidden" data-i18n="searchContacts">ابحث في جهات اتصالك</span>
+              <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="m20 20-4-4"/></svg>
+              <input id="contactSearch" type="search" data-i18n-placeholder="searchContacts" placeholder="ابحث في جهات اتصالك..." />
+            </label>
+            <div class="contact-toolbar-actions">
+              <button class="outline-button" id="exportMyContactsButton" type="button" data-i18n="exportMyContacts">تصدير جهات اتصالي</button>
+              <button class="outline-button import-button" id="importContactsButton" type="button" data-i18n="importContacts">استيراد ملف الهاتف</button>
+              <input id="contactFileInput" type="file" accept=".vcf,text/vcard" hidden />
+              <button class="submit-button add-contact-button" id="addContactButton" type="button" data-i18n="addContact">إضافة جهة اتصال</button>
+            </div>
+          </div>
+          <p class="import-help" data-i18n="importHelp">اختر ملف VCF مُصدّرًا من تطبيق جهات الاتصال في هاتفك؛ سيبدأ الاستيراد بعد اختياره.</p>
+          <div class="operation-status" id="operationStatus" role="status" aria-live="polite" hidden></div>
+          <div class="contacts-count"><strong id="contactCount">0</strong> <span data-i18n="contactCount">جهة اتصال</span></div>
+          <div class="contact-list" id="contactList" aria-live="polite"></div>
+        </div>
+        <section class="contact-detail-view" id="contactDetailView" hidden aria-labelledby="contactDetailName">
+          <button class="outline-button detail-back-button" id="contactDetailBack" type="button">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="m15 18-6-6 6-6" /></svg>
+            <span data-i18n="backToContacts">العودة لجهات الاتصال</span>
+          </button>
+          <article class="contact-detail-card">
+            <div class="contact-detail-heading">
+              <div class="contact-avatar contact-detail-avatar" id="contactDetailAvatar" aria-hidden="true"></div>
+              <div class="contact-detail-title">
+                <p class="eyebrow" data-i18n="contactDetails">بيانات جهة الاتصال</p>
+                <h2 id="contactDetailName"></h2>
+                <p class="profile-email" id="contactDetailPhone"></p>
+              </div>
+            </div>
+            <div class="contact-detail-actions" id="contactDetailActions"></div>
+            <div class="contact-detail-fields" id="contactDetailFields"></div>
+          </article>
+        </section>
+      </section>
+    </main>
+
+    <dialog class="action-dialog" id="addContactDialog">
+      <form id="addContactForm">
+        <div class="dialog-heading">
+          <div>
+            <h2 data-i18n="addContactTitle">إضافة جهة اتصال</h2>
+            <p data-i18n="addContactSubtitle">أضف اسمًا ورقم هاتف لحفظه في قائمتك</p>
+          </div>
+          <button class="dialog-close" type="button" data-close-dialog="addContactDialog" aria-label="إغلاق" data-i18n-aria="close">×</button>
+        </div>
+        <label>
+          <span data-i18n="contactName">اسم جهة الاتصال</span>
+          <input name="name" required maxlength="120" autocomplete="name" />
+        </label>
+        <label>
+          <span data-i18n="phoneLabel">رقم الهاتف</span>
+          <input name="phone" type="tel" maxlength="40" autocomplete="tel" />
+        </label>
+        <div class="dialog-error" id="addContactError" role="alert" hidden></div>
+        <div class="dialog-actions">
+          <button class="outline-button" type="button" data-close-dialog="addContactDialog" data-i18n="cancel">إلغاء</button>
+          <button class="submit-button" id="saveContactButton" type="submit" data-i18n="saveContactAction">حفظ جهة الاتصال</button>
+        </div>
+      </form>
+    </dialog>
+
+    <dialog class="action-dialog" id="passwordDialog">
+      <form id="passwordForm">
+        <div class="dialog-heading">
+          <div>
+            <h2 data-i18n="changePassword">تغيير كلمة المرور</h2>
+            <p data-i18n="passwordDialogSubtitle">أدخل كلمة المرور الحالية ثم اختر كلمة مرور جديدة</p>
+          </div>
+          <button class="dialog-close" type="button" data-close-dialog="passwordDialog" aria-label="إغلاق" data-i18n-aria="close">×</button>
+        </div>
+        <label>
+          <span data-i18n="currentPassword">كلمة المرور الحالية</span>
+          <input name="currentPassword" type="password" required autocomplete="current-password" />
+        </label>
+        <label>
+          <span data-i18n="newPassword">كلمة المرور الجديدة</span>
+          <input name="newPassword" type="password" required minlength="8" autocomplete="new-password" />
+        </label>
+        <label>
+          <span data-i18n="confirmPassword">تأكيد كلمة المرور الجديدة</span>
+          <input name="confirmPassword" type="password" required minlength="8" autocomplete="new-password" />
+        </label>
+        <div class="dialog-error" id="passwordError" role="alert" hidden></div>
+        <div class="dialog-actions">
+          <button class="outline-button" type="button" data-close-dialog="passwordDialog" data-i18n="cancel">إلغاء</button>
+          <button class="submit-button" id="savePasswordButton" type="submit" data-i18n="savePassword">حفظ كلمة المرور</button>
+        </div>
+      </form>
+    </dialog>
+    <button class="back-to-top" id="backToTopButton" type="button" data-i18n-aria="backToTop" aria-label="العودة إلى أعلى الصفحة" title="العودة إلى أعلى الصفحة" hidden>
+      <svg viewBox="0 0 24 24" aria-hidden="true"><path d="m6 14 6-6 6 6" /></svg>
+    </button>
+    <script type="module" src="./user.js"></script>
+  </body>
+</html>

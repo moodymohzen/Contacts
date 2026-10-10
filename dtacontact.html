@@ -1,0 +1,237 @@
+<!doctype html>
+<html lang="ar" dir="rtl">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="theme-color" content="#f4f7fb" />
+    <title>إدارة جهات الاتصال</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="./styles.css" />
+  </head>
+  <body>
+    <main class="dashboard-gate" id="dashboardGate">
+      <form class="dashboard-gate-card" id="dashboardGateForm">
+        <div class="gate-icon" aria-hidden="true">
+          <svg viewBox="0 0 24 24"><path d="M7 10V7a5 5 0 0 1 10 0v3m-11 0h12a2 2 0 0 1 2 2v8H4v-8a2 2 0 0 1 2-2Zm5 5v2" /></svg>
+        </div>
+        <h1 data-gate-text="title">لوحة الإدارة</h1>
+        <p data-gate-text="subtitle">أدخل كلمة المرور للمتابعة</p>
+        <label for="dashboardPassword" data-gate-text="passwordLabel">كلمة المرور</label>
+        <input id="dashboardPassword" type="password" autocomplete="current-password" required autofocus />
+        <p class="dashboard-gate-error" id="dashboardGateError" role="alert" hidden data-gate-text="error">كلمة المرور غير صحيحة.</p>
+        <button class="button button-primary" type="submit" data-gate-text="submit">دخول</button>
+      </form>
+    </main>
+    <div class="app-shell" id="dashboardApp" hidden>
+      <aside class="sidebar">
+        <div class="brand">
+          <div class="brand-mark" aria-hidden="true">
+            <svg viewBox="0 0 24 24"><path d="M16 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2M10 11a4 4 0 1 0 0-8 4 4 0 0 0 0 8ZM20 8v6M23 11h-6"/></svg>
+          </div>
+          <div>
+            <strong data-i18n="appName">إدارة جهات الاتصال</strong>
+            <span data-i18n="controlPanel">لوحة التحكم</span>
+          </div>
+        </div>
+
+        <div class="nav-caption" data-i18n="mainMenu">القائمة الرئيسية</div>
+        <nav class="navigation" id="mainNavigation" aria-label="التنقل الرئيسي">
+          <button class="nav-link active" data-view="contacts" type="button">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M16 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2M10 11a4 4 0 1 0 0-8 4 4 0 0 0 0 8ZM20 8v6M23 11h-6"/></svg>
+            <span data-i18n="contacts">جهات الاتصال</span>
+          </button>
+          <button class="nav-link" data-view="users" type="button">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M16 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2M10 11a4 4 0 1 0 0-8 4 4 0 0 0 0 8ZM20 21v-2a4 4 0 0 0-3-3.87M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+            <span data-i18n="users">إدارة المستخدمين</span>
+          </button>
+          <a class="nav-external" href="./index.html">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M15 3h6v6M10 14 21 3M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/></svg>
+            <span data-i18n="userLoginPage">واجهة المستخدمين</span>
+          </a>
+        </nav>
+
+        <div class="sidebar-note" data-i18n="sidebarNote">اللوحة مفتوحة للجميع ويمكنك الآن تعديل البيانات</div>
+      </aside>
+
+      <main class="main-area">
+        <header class="topbar">
+          <div class="topbar-title" id="topbarTitle" data-i18n="contacts">جهات الاتصال</div>
+          <button class="language-button" id="languageButton" type="button">English</button>
+        </header>
+
+        <div class="content">
+          <section class="page-heading">
+            <div class="heading-copy">
+              <div class="heading-icon" aria-hidden="true">
+                <svg viewBox="0 0 24 24"><path d="M16 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2M10 11a4 4 0 1 0 0-8 4 4 0 0 0 0 8ZM20 8v6M23 11h-6"/></svg>
+              </div>
+              <div>
+                <h1 id="pageTitle" data-i18n="contacts">جهات الاتصال</h1>
+                <p id="pageSubtitle" data-i18n="contactsSubtitle">كل الأشخاص المهمين في مكان واحد</p>
+              </div>
+            </div>
+            <div class="heading-actions">
+              <button class="button button-secondary" id="backToUsersButton" type="button" hidden>
+                <svg viewBox="0 0 24 24" aria-hidden="true"><path d="m15 18-6-6 6-6M9 12h12M3 5v14" /></svg>
+                <span data-i18n="backToUsers">العودة للمستخدمين</span>
+              </button>
+              <button class="button button-secondary" id="refreshButton" type="button">
+                <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M20 7v5h-5M4 17v-5h5M5.64 9A7 7 0 0 1 18 6l2 2M4 16l2 2a7 7 0 0 0 12.36-3"/></svg>
+                <span data-i18n="refresh">تحديث</span>
+              </button>
+              <button class="button button-secondary export-all-button" id="exportAllButton" type="button" data-i18n-aria="exportAll" title="حفظ كل جهات الاتصال بصيغة VCF">
+                <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M16 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2M10 11a4 4 0 1 0 0-8 4 4 0 0 0 0 8ZM20 8v8M17 13l3 3 3-3"/></svg>
+              </button>
+              <button class="button button-primary" id="addButton" type="button">
+                <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 5v14M5 12h14"/></svg>
+                <span data-i18n="addContact">إضافة جهة اتصال</span>
+              </button>
+              <button class="button button-primary" id="addUserButton" type="button" hidden>
+                <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M16 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2M10 11a4 4 0 1 0 0-8 4 4 0 0 0 0 8ZM20 8v8M17 13l3 3 3-3"/></svg>
+                <span data-i18n="addUser">إضافة مستخدم</span>
+              </button>
+            </div>
+          </section>
+
+          <section class="toolbar" id="searchToolbar" aria-label="البحث والتصفية">
+            <div class="search-box">
+              <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="m20 20-4-4"/></svg>
+              <input id="searchInput" type="search" data-i18n-placeholder="searchContacts" placeholder="ابحث بالاسم أو رقم الهاتف أو البريد..." />
+            </div>
+            <select id="userFilter" aria-label="تصفية حسب المستخدم">
+              <option value="" data-i18n="allUsers">كل المستخدمين</option>
+            </select>
+            <div class="record-count"><span id="recordCount">—</span> <span id="countLabel" data-i18n="contactCount">عدد جهات الاتصال</span></div>
+          </section>
+
+          <div id="statusMessage" class="status-message" role="status" hidden></div>
+          <section id="records" class="records" aria-live="polite"></section>
+        </div>
+      </main>
+    </div>
+
+    <dialog id="contactDialog" class="contact-dialog">
+      <form id="contactForm" method="dialog">
+        <div class="dialog-heading">
+          <div>
+            <h2 data-i18n="newContact">إضافة جهة اتصال</h2>
+            <p data-i18n="newContactHint">أدخل بيانات جهة الاتصال الجديدة</p>
+          </div>
+          <button class="icon-button" id="closeDialogButton" type="button" aria-label="إغلاق" data-i18n-aria="close">×</button>
+        </div>
+        <label>
+          <span data-i18n="name">الاسم</span>
+          <input name="name" required maxlength="120" autocomplete="name" />
+        </label>
+        <label>
+          <span data-i18n="phone">رقم الهاتف</span>
+          <input name="phone" type="tel" maxlength="40" autocomplete="tel" />
+        </label>
+        <label>
+          <span data-i18n="linkedUser">المستخدم المرتبط</span>
+          <select name="userId" id="contactUserSelect">
+            <option value="" data-i18n="noUser">بدون مستخدم</option>
+          </select>
+        </label>
+        <div id="formError" class="form-error" role="alert" hidden></div>
+        <div class="dialog-actions">
+          <button class="button button-secondary" id="cancelDialogButton" type="button" data-i18n="cancel">إلغاء</button>
+          <button class="button button-primary" id="saveContactButton" type="submit" data-i18n="save">حفظ جهة الاتصال</button>
+        </div>
+      </form>
+    </dialog>
+    <dialog id="userDialog" class="contact-dialog user-dialog">
+      <form id="userForm" method="dialog">
+        <div class="dialog-heading">
+          <div>
+            <h2 id="userDialogTitle">إضافة مستخدم</h2>
+            <p data-i18n="userFormHint">أدخل الاسم وكلمة المرور والبريد الإلكتروني والنوع</p>
+          </div>
+          <button class="icon-button" id="closeUserDialogButton" type="button" aria-label="إغلاق" data-i18n-aria="close">×</button>
+        </div>
+        <label>
+          <span data-i18n="userName">الاسم</span>
+          <input name="userName" id="userNameInput" required maxlength="120" autocomplete="name" />
+        </label>
+        <label>
+          <span data-i18n="password">كلمة المرور</span>
+          <div class="password-field">
+            <input name="password" id="userPasswordInput" type="password" required autocomplete="new-password" />
+            <button class="password-toggle" id="toggleUserPassword" type="button" aria-label="إظهار كلمة المرور" title="إظهار كلمة المرور" data-i18n-aria="showPassword">
+              <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M2 12s3.6-7 10-7 10 7 10 7-3.6 7-10 7-10-7-10-7Z M12 9a3 3 0 1 0 0 6 3 3 0 0 0 0-6Z" /></svg>
+            </button>
+          </div>
+        </label>
+        <label>
+          <span data-i18n="email">البريد الإلكتروني</span>
+          <input name="email" id="userEmailInput" type="email" required maxlength="160" autocomplete="email" />
+        </label>
+        <label>
+          <span data-i18n="userType">النوع</span>
+          <select name="userType" id="userTypeInput" required>
+            <option value="" data-i18n="chooseUserType">اختر النوع</option>
+            <option value="manager" data-i18n="managerRole">مدير</option>
+            <option value="supervisor" data-i18n="supervisorRole">مشرف</option>
+            <option value="user" data-i18n="standardUserRole">مستخدم</option>
+          </select>
+        </label>
+        <div id="userFormError" class="form-error" role="alert" hidden></div>
+        <div class="dialog-actions">
+          <button class="button button-secondary" id="cancelUserDialogButton" type="button" data-i18n="cancel">إلغاء</button>
+          <button class="button button-primary" id="saveUserButton" type="submit" data-i18n="saveUser">حفظ المستخدم</button>
+        </div>
+      </form>
+    </dialog>
+    <script type="module">
+      const gate = document.querySelector("#dashboardGate");
+      const app = document.querySelector("#dashboardApp");
+      const form = document.querySelector("#dashboardGateForm");
+      const error = document.querySelector("#dashboardGateError");
+      const gateLanguageButton = document.createElement("button");
+      const translations = {
+        ar: { title: "لوحة الإدارة", subtitle: "أدخل كلمة المرور للمتابعة", passwordLabel: "كلمة المرور", error: "كلمة المرور غير صحيحة.", submit: "دخول" },
+        en: { title: "Admin dashboard", subtitle: "Enter the password to continue", passwordLabel: "Password", error: "Incorrect password.", submit: "Sign in" }
+      };
+      let language = "ar";
+      const toggleLanguage = () => {
+        language = language === "ar" ? "en" : "ar";
+        document.documentElement.lang = language;
+        document.documentElement.dir = language === "ar" ? "rtl" : "ltr";
+        document.querySelectorAll("[data-gate-text]").forEach((element) => {
+          element.textContent = translations[language][element.dataset.gateText];
+        });
+      };
+
+      form.addEventListener("submit", async (event) => {
+        event.preventDefault();
+        const enteredPassword = document.querySelector("#dashboardPassword").value;
+        if (enteredPassword !== "Ahmed123") {
+          error.hidden = false;
+          return;
+        }
+        sessionStorage.setItem("dtacontact-dashboard-open", "true");
+        gate.hidden = true;
+        gateLanguageButton.hidden = true;
+        app.hidden = false;
+        await import("./app.js");
+      });
+
+      gateLanguageButton.className = "language-button gate-language-button";
+      gateLanguageButton.type = "button";
+      gateLanguageButton.textContent = "English";
+      gateLanguageButton.addEventListener("click", toggleLanguage);
+      document.body.append(gateLanguageButton);
+
+      if (sessionStorage.getItem("dtacontact-dashboard-open") === "true") {
+        gate.hidden = true;
+        gateLanguageButton.hidden = true;
+        app.hidden = false;
+        await import("./app.js");
+      } else {
+        document.querySelector("#dashboardPassword").focus();
+      }
+    </script>
+  </body>
+</html>
